@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Explorasi Jakarta – Media Belajar Teks Deskripsi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Nunito:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app" id="app" data-theme="monas">
+        <header class="bar">
+            <button id="btnMenu" aria-label="Buka daftar isi">☰</button>
+            <div class="prog" role="progressbar" aria-label="Kemajuan belajar"><i id="progFill"></i></div>
+            <span id="progTxt">0%</span>
+        </header>
+        <main id="screen" tabindex="-1"></main>
+        <footer class="nav">
+            <button id="btnPrev">‹ Kembali</button>
+            <span id="pageNo"></span>
+            <button id="btnNext" class="primary">Selanjutnya ›</button>
+        </footer>
+        <aside class="drawer" id="drawer" aria-hidden="true">
+            <h2>Daftar Isi</h2>
+            <ol id="toc"></ol>
+        </aside>
+        <div class="scrim" id="scrim"></div>
+    </div>
+    <script src="teks.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
