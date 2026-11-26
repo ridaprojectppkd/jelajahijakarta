@@ -25,15 +25,47 @@
     <button id="btnNext" class="primary">Selanjutnya ›</button>
   </nav>
         <main id="screen" tabindex="-1"></main>
+        <!-- Lottie Cursor Character -->
+<div id="cursorCharacter" aria-hidden="true">
+    <lottie-player
+        src="assets/lottie/Live chatbot.json"
+        background="transparent"
+        speed="1"
+        loop
+        autoplay>
+    </lottie-player>
+</div>
         <aside class="drawer" id="drawer" aria-hidden="true">
             <h2>Daftar Isi</h2>
             <ol id="toc"></ol>
         </aside>
         <div class="scrim" id="scrim"></div>
     </div>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="teks.js"></script>
     <script src="script.js"></script>
     <script src="tambahan.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const app = document.getElementById("app");
+        const character = document.getElementById("cursorCharacter");
+
+        if (!app || !character) return;
+
+        app.addEventListener("pointermove", (event) => {
+            if (event.pointerType !== "mouse") return;
+
+            const rect = app.getBoundingClientRect();
+
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            character.style.left = `${x}px`;
+            character.style.top = `${y}px`;
+        });
+    });
+    </script>
 </body>
 
 </html>

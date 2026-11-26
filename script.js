@@ -198,7 +198,10 @@ function quizInit(n) {
     const b = e.target.closest('.opt'); if (!b || q.dataset.d) return;
     const good = +b.dataset.j === +q.dataset.a; if (good) { q.dataset.d = 1; b.classList.add('ok'); $('.fb', q).textContent = '✅ Tepat sekali!'; ok++; done++; }
     else { b.classList.add('no'); b.disabled = true; $('.fb', q).textContent = '❌ Belum tepat, coba pilihan lain.'; }
-    if (done === n) $('#score').textContent = `🎉 Selesai! ${ok}/${n} benar`;
+    if (done === n) {
+      $('#score').textContent = `🎉 Selesai! ${ok}/${n} benar`;
+      launchConfetti();
+    }
   }))
 }
 function flipInit() { $$('.flip').forEach(b => b.onclick = () => b.classList.toggle('on')) }
@@ -230,14 +233,69 @@ function kaidahInit() {
   }));
 }
 function writeInit() { const t = $('#tulis'); t.oninput = () => { const n = (t.value.match(/[^.!?]+[.!?]+/g) || []).length; $('#hitung').textContent = `${n} kalimat` + (n < 5 ? ' – tambah lagi (minimal 5).' : n > 7 ? ' – terlalu panjang (maksimal 7).' : ' ✅ Jumlah kalimat sudah pas!') } }
-function reflInit() { const c = $$('.chk input'); c.forEach(i => i.onchange = () => { const p = Math.round(c.filter(x => x.checked).length / c.length * 100); $('#ring').style.setProperty('--p', p); $('#rp').textContent = p + '%'; $('#refMsg').textContent = p === 100 ? '🌟 Hebat! Kamu menguasai semua materi.' : p >= 50 ? 'Bagus, terus berlatih!' : 'Ulangi materi yang belum kamu kuasai.' }) }
-function tabInit() {
+function reflInit() {
+  const c = $$('.chk input');
+  let confettiPlayed = false;
+
+  c.forEach(i => i.onchange = () => {
+    const p = Math.round(
+      c.filter(x => x.checked).length / c.length * 100
+    );
+
+    $('#ring').style.setProperty('--p', p);
+    $('#rp').textContent = p + '%';
+
+    $('#refMsg').textContent =
+      p === 100
+        ? '🌟 Hebat! Kamu menguasai semua materi.'
+        : p >= 50
+          ? 'Bagus, terus berlatih!'
+          : 'Ulangi materi yang belum kamu kuasai.';
+
+    // Confetti saat refleksi mencapai 100%
+    if (p === 100 && !confettiPlayed) {
+      launchConfetti();
+      confettiPlayed = true;
+    }
+
+    // Bisa memunculkan confetti lagi jika checklist diulang
+    if (p < 100) {
+      confettiPlayed = false;
+    }
+  });
+} function tabInit() {
   const T = [['Indonesia memiliki beragam destinasi wisata yang menyimpan keindahan alam, nilai sejarah, serta kekayaan budaya. Setiap tempat wisata memiliki ciri khas dan daya tarik tersendiri yang dapat dikenali melalui berbagai informasi. Jakarta sebagai ibu kota Indonesia juga memiliki beragam destinasi wisata yang menarik untuk dipelajari, mulai dari Monumen Nasional (Monas), Kota Tua Jakarta, Taman Mini Indonesia Indah (TMII), Hutan Mangrove Angke Kapuk, hingga Pantai Ancol.', 'Melalui pembelajaran teks deskripsi, peserta didik diajak mengenal berbagai tempat wisata di Jakarta serta memahami informasi mengenai nama, lokasi, keadaan, ciri-ciri, dan daya tarik suatu objek. Peserta didik akan belajar menemukan informasi penting, memahami isi bacaan, mengenali struktur dan unsur kebahasaan, serta menggunakan kata-kata yang tepat untuk menggambarkan suatu tempat secara terperinci.', 'Selain melalui bacaan, pembelajaran juga dilengkapi dengan gambar, video, dan teknologi Augmented Reality (AR). Penggunaan media tersebut membantu peserta didik memperoleh gambaran yang lebih jelas mengenai objek yang sedang dipelajari. Dengan menghubungkan informasi tertulis dan visual, peserta didik diharapkan mampu mengembangkan kemampuan membaca, mengamati, memahami, serta menyampaikan informasi secara lisan maupun tulisan.'], ['Peserta didik mampu menganalisis informasi berupa gagasan, pandangan, arahan, dan pesan dari berbagai teks visual dan audiovisual untuk menemukan makna tersurat serta menginterpretasikan informasi yang diperoleh.'], ['Setelah belajar, kamu mampu: menjelaskan pengertian dan ciri teks deskripsi; mengidentifikasi objek dan informasi penting; menyusun simpulan; mengidentifikasi struktur dan unsur kebahasaan; serta menulis teks deskripsi.']];
   const f = i => { $$('#tabs button').forEach(b => b.classList.toggle('on', +b.dataset.t === i)); $('#tabBody').innerHTML = kartu('', T[i].map(p => `<p>${p}</p>`).join('')); revealContent($('#tabBody')) }; f(0); $$('#tabs button').forEach(b => b.onclick = () => f(+b.dataset.t))
 }
 function roadInit() {
   const L = [['Pendahuluan', 3], ['Unit 1 – Monas', 5], ['Unit 2 – Kota Tua & TMII', 9], ['Unit 3 – Hutan Mangrove', 17], ['Unit 4 – Pantai Ancol & AR', 22], ['Daftar Pustaka', P.findIndex(p => p.t === 'Daftar Pustaka')]];
   $('#roadList').innerHTML = L.map(([t, i], n) => `<li><button data-go="${i}" class="${seen.has(i) ? 'done' : ''}"><span class="badge">${n + 1}</span><span>${t}</span></button></li>`).join('')
+}
+function launchConfetti() {
+  if (typeof confetti !== 'function') return;
+
+  confetti({
+    particleCount: 120,
+    spread: 80,
+    origin: { y: 0.65 },
+    colors: ['#FF9F1C', '#FFD166', '#06D6A0', '#4D96FF', '#FF6B9A']
+  });
+
+  setTimeout(() => {
+    confetti({
+      particleCount: 70,
+      angle: 60,
+      spread: 65,
+      origin: { x: 0 }
+    });
+
+    confetti({
+      particleCount: 70,
+      angle: 120,
+      spread: 65,
+      origin: { x: 1 }
+    });
+  }, 250);
 }
 
 /* ===== NAVIGASI ===== */
