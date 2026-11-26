@@ -66,17 +66,17 @@ Object.entries(U).forEach(([k, u]) => {
     ['🗼', 'Monumen Nasional merupakan salah satu ikon wisata dan sejarah di Jakarta.'],
     ['📱', 'Informasi dalam teks dapat dipahami lebih lengkap melalui pengamatan gambar, peta, video, dan media AR.']
   ].map(([icon, text], i) => `<article class="monas-recap-item"><span class="monas-recap-number">${String(i + 1).padStart(2, '0')}</span><span class="monas-recap-icon">${icon}</span><p>${text}</p></article>`).join('')}</div><div class="monas-recap-note">💡 Kamu sudah menyelesaikan Unit Monas. Lanjutkan perjalanan belajar ke objek wisata Jakarta lainnya!</div>`);
-if (k === 'monas') add(
-  'Augmented Reality Monas',
-  'monas',
-  judul('Jelajahi Monumen Nasional', 'Kenali ikon kebanggaan Jakarta melalui pengalaman Augmented Reality.') +
+  if (k === 'monas') add(
+    'Augmented Reality Monas',
+    'monas',
+    judul('Jelajahi Monumen Nasional', 'Kenali ikon kebanggaan Jakarta melalui pengalaman Augmented Reality.') +
 
-  kartu('Mengenal Monumen Nasional (Monas)', `
+    kartu('Mengenal Monumen Nasional (Monas)', `
     <p>Monumen Nasional merupakan salah satu ikon Kota Jakarta yang menjadi simbol perjuangan bangsa Indonesia. Bangunan ini memiliki tinggi 132 meter dengan lidah api berlapis emas pada bagian puncaknya.</p>
     <p>Monas terletak di kawasan Medan Merdeka, Jakarta Pusat.</p>
   `) +
 
-  kartu('Petunjuk Eksplorasi AR', `
+    kartu('Petunjuk Eksplorasi AR', `
     <ol>
       <li>Buka model AR Monas.</li>
       <li>Putar objek untuk melihat bentuknya dari berbagai arah.</li>
@@ -86,7 +86,7 @@ if (k === 'monas') add(
     </ol>
   `) +
 
-  `<div class="card ar-embed-card">
+    `<div class="card ar-embed-card">
     <div class="ar-embed-frame">
       <iframe src="https://v2.editor.assemblrworld.com/Embed/-sS7Q5mxg7yoyb47ZjHX"
       title="Model Augmented Reality Monas"
@@ -96,21 +96,21 @@ if (k === 'monas') add(
     <p class="ar-embed-hint">📱 Putar dan amati model Monas dari berbagai arah.</p>
   </div>` +
 
-  kartu('Yuk, Tulis Hasil Pengamatanmu!', `
+    kartu('Yuk, Tulis Hasil Pengamatanmu!', `
     <p>Bagaimana bentuk Monas yang kamu lihat? Jelaskan bagian-bagian bangunan, warna, dan ciri khasnya.</p>
   `)
-);
-if (k === 'tua') add(
-  'Augmented Reality Kota Tua',
-  'tua',
-  judul('Jelajahi Kota Tua Jakarta', 'Amati peninggalan sejarah melalui model Augmented Reality.') +
+  );
+  if (k === 'tua') add(
+    'Augmented Reality Kota Tua',
+    'tua',
+    judul('Jelajahi Kota Tua Jakarta', 'Amati peninggalan sejarah melalui model Augmented Reality.') +
 
-  kartu('Mengenal Kota Tua Jakarta', `
+    kartu('Mengenal Kota Tua Jakarta', `
     <p>Kota Tua Jakarta merupakan kawasan bersejarah yang dahulu dikenal dengan nama Batavia. Kawasan ini memiliki bangunan-bangunan lama dengan arsitektur khas peninggalan masa kolonial.</p>
     <p>Salah satu kawasan yang terkenal adalah Taman Fatahillah yang dikelilingi bangunan bersejarah dan museum.</p>
   `) +
 
-  kartu('Petunjuk Eksplorasi AR', `
+    kartu('Petunjuk Eksplorasi AR', `
     <ol>
       <li>Buka model AR Kota Tua.</li>
       <li>Amati bentuk bangunan dari berbagai arah.</li>
@@ -120,7 +120,7 @@ if (k === 'tua') add(
     </ol>
   `) +
 
-  `<div class="card ar-embed-card">
+    `<div class="card ar-embed-card">
     <div class="ar-embed-frame">
       <iframe src="https://viewer-edu.assemblrworld.com/Embed/-sS7Q5mxg7yoyb47ZjHX"
       title="Model Augmented Reality Kota Tua Jakarta"
@@ -130,24 +130,24 @@ if (k === 'tua') add(
     <p class="ar-embed-hint">📱 Amati model Kota Tua dari berbagai sudut pandang.</p>
   </div>` +
 
-  kartu('Yuk, Tulis Hasil Pengamatanmu!', `
+    kartu('Yuk, Tulis Hasil Pengamatanmu!', `
     <p>Deskripsikan bangunan yang kamu amati. Jelaskan bentuk, bagian bangunan, ciri arsitektur, dan kesan yang kamu rasakan.</p>
   `)
-);
+  );
   if (u.struktur) add('Analisis Struktur', 'mangrove', judul('Kenali Struktur Teks', 'Baca setiap kalimat, lalu pilih bagian teks yang sesuai.') + `<div class="word-game structure-game"><div class="word-progress"><span id="structureCount">0 dari ${u.struktur.length} kalimat</span><div class="word-track"><i id="structureFill"></i></div></div>${u.struktur.map(([sentence, answer], i) => `<article class="word-card structure-card" data-answer="${answer}" data-done="false"><div class="word-prompt structure-prompt"><span class="word-number">${String(i + 1).padStart(2, '0')}</span><span class="word-label">Bagian struktur kalimat ini…</span><p class="structure-sentence">“${sentence}”</p></div><div class="word-options structure-options">${[['Identifikasi', '🔎'], ['Deskripsi bagian', '🧩'], ['Penutup', '🌱']].map(([type, icon]) => `<button class="word-option" type="button" data-type="${type}"><span>${icon}</span>${type}</button>`).join('')}</div><p class="word-feedback" aria-live="polite"></p></article>`).join('')}<div class="word-finish" id="structureFinish" aria-live="polite"></div></div>`, structureInit);
   if (u.kaidah) {
     add('Kaidah Kebahasaan', 'ancol', judul('Temukan Jenis Kata', 'Ketuk kategori yang cocok untuk setiap kata.') + `<div class="word-game"><div class="word-progress"><span id="wordCount">0 dari ${u.kaidah.length} kata</span><div class="word-track"><i id="wordFill"></i></div></div>${u.kaidah.map(([word, answer], i) => `<article class="word-card" data-answer="${answer}" data-done="false"><div class="word-prompt"><span class="word-number">${String(i + 1).padStart(2, '0')}</span><span class="word-label">Termasuk jenis kata…</span><b class="word-chip">${word}</b></div><div class="word-options">${[['Kata benda', '📦'], ['Kata sifat', '✨'], ['Kata lokasi', '📍']].map(([type, icon]) => `<button class="word-option" type="button" data-type="${type}"><span>${icon}</span>${type}</button>`).join('')}</div><p class="word-feedback" aria-live="polite"></p></article>`).join('')}<div class="word-finish" id="wordFinish" aria-live="polite"></div></div>`, kaidahInit);
-add(
-  'Augmented Reality Pantai Ancol',
-  'ancol',
-  judul('Jelajahi Pantai Ancol', 'Amati suasana pantai melalui media visual dan Augmented Reality.') +
+    add(
+      'Augmented Reality Pantai Ancol',
+      'ancol',
+      judul('Jelajahi Pantai Ancol', 'Amati suasana pantai melalui media visual dan Augmented Reality.') +
 
-  kartu('Mengenal Pantai Ancol', `
+      kartu('Mengenal Pantai Ancol', `
     <p>Pantai Ancol merupakan kawasan rekreasi di pesisir utara Jakarta. Pantai ini memiliki pemandangan perairan terbuka dan menjadi salah satu tujuan rekreasi masyarakat.</p>
     <p>Pada sore hari, pengunjung dapat menikmati suasana matahari terbenam di sekitar pantai.</p>
   `) +
 
-  kartu('Petunjuk Eksplorasi AR', `
+      kartu('Petunjuk Eksplorasi AR', `
     <ol>
       <li>Buka tautan objek AR Pantai Ancol.</li>
       <li>Amati objek yang ditampilkan.</li>
@@ -155,14 +155,28 @@ add(
       <li>Amati warna dan suasana lingkungan sekitar.</li>
       <li>Catat informasi visual yang kamu temukan.</li>
     </ol>
-    <a class="ar" href="https://asbir.com/o1PX4F1" target="_blank" rel="noopener">📱 Buka Objek AR Pantai Ancol</a>
-    <a class="ar" href="https://youtu.be/K6Z3wNECu9s" target="_blank" rel="noopener">▶️ Tonton Video Pendukung</a>
-  `) +
+<div class="card ar-embed-card">
+  <h3>Eksplorasi 3D Pantai Ancol</h3>
 
-  kartu('Yuk, Tulis Hasil Pengamatanmu!', `
+  <div class="ar-embed-frame">
+    <iframe
+      src="https://viewer-edu.assemblrworld.com/Embed/-ZvTbQhzHnwK5XvkowFx"
+      title="Augmented Reality Pantai Ancol"
+      allow="camera; microphone; gyroscope; accelerometer; magnetometer; xr-spatial-tracking; fullscreen"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <p class="ar-embed-hint">
+    📱 Amati objek Pantai Ancol dari berbagai arah.
+    Gunakan fitur AR jika tersedia pada perangkatmu.
+  </p>
+</div>  `) +
+
+      kartu('Yuk, Tulis Hasil Pengamatanmu!', `
     <p>Deskripsikan Pantai Ancol berdasarkan hasil pengamatan. Jelaskan keadaan air, garis pantai, warna, suasana, dan daya tariknya.</p>
   `)
-);
+    );
   }
 });
 
