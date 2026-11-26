@@ -1005,6 +1005,7 @@ summary {
 .profile-info { padding: 13px 16px 16px }
 .profile-role { display: inline-block; padding: 3px 10px; border-radius: 20px; color: #fff; background: var(--acc); font-size: 11px; font-weight: 900 }
 .profile-info h2 { margin: 7px 0 0; color: var(--ink); font-size: 20px; line-height: 1.25 }
+.profile-id { margin: 4px 0 0; color: var(--muted); font-size: 14px; font-weight: 800 }
 
 .structure-prompt { grid-template-columns: auto 1fr }
 .structure-sentence {
