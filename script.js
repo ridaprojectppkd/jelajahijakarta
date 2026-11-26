@@ -233,7 +233,7 @@ function writeInit() { const t = $('#tulis'); t.oninput = () => { const n = (t.v
 function reflInit() { const c = $$('.chk input'); c.forEach(i => i.onchange = () => { const p = Math.round(c.filter(x => x.checked).length / c.length * 100); $('#ring').style.setProperty('--p', p); $('#rp').textContent = p + '%'; $('#refMsg').textContent = p === 100 ? '🌟 Hebat! Kamu menguasai semua materi.' : p >= 50 ? 'Bagus, terus berlatih!' : 'Ulangi materi yang belum kamu kuasai.' }) }
 function tabInit() {
   const T = [['Indonesia memiliki beragam destinasi wisata yang menyimpan keindahan alam, nilai sejarah, serta kekayaan budaya. Setiap tempat wisata memiliki ciri khas dan daya tarik tersendiri yang dapat dikenali melalui berbagai informasi. Jakarta sebagai ibu kota Indonesia juga memiliki beragam destinasi wisata yang menarik untuk dipelajari, mulai dari Monumen Nasional (Monas), Kota Tua Jakarta, Taman Mini Indonesia Indah (TMII), Hutan Mangrove Angke Kapuk, hingga Pantai Ancol.', 'Melalui pembelajaran teks deskripsi, peserta didik diajak mengenal berbagai tempat wisata di Jakarta serta memahami informasi mengenai nama, lokasi, keadaan, ciri-ciri, dan daya tarik suatu objek. Peserta didik akan belajar menemukan informasi penting, memahami isi bacaan, mengenali struktur dan unsur kebahasaan, serta menggunakan kata-kata yang tepat untuk menggambarkan suatu tempat secara terperinci.', 'Selain melalui bacaan, pembelajaran juga dilengkapi dengan gambar, video, dan teknologi Augmented Reality (AR). Penggunaan media tersebut membantu peserta didik memperoleh gambaran yang lebih jelas mengenai objek yang sedang dipelajari. Dengan menghubungkan informasi tertulis dan visual, peserta didik diharapkan mampu mengembangkan kemampuan membaca, mengamati, memahami, serta menyampaikan informasi secara lisan maupun tulisan.'], ['Peserta didik mampu menganalisis informasi berupa gagasan, pandangan, arahan, dan pesan dari berbagai teks visual dan audiovisual untuk menemukan makna tersurat serta menginterpretasikan informasi yang diperoleh.'], ['Setelah belajar, kamu mampu: menjelaskan pengertian dan ciri teks deskripsi; mengidentifikasi objek dan informasi penting; menyusun simpulan; mengidentifikasi struktur dan unsur kebahasaan; serta menulis teks deskripsi.']];
-  const f = i => { $$('#tabs button').forEach(b => b.classList.toggle('on', +b.dataset.t === i)); $('#tabBody').innerHTML = kartu('', T[i].map(p => `<p>${p}</p>`).join('')) }; f(0); $$('#tabs button').forEach(b => b.onclick = () => f(+b.dataset.t))
+  const f = i => { $$('#tabs button').forEach(b => b.classList.toggle('on', +b.dataset.t === i)); $('#tabBody').innerHTML = kartu('', T[i].map(p => `<p>${p}</p>`).join('')); revealContent($('#tabBody')) }; f(0); $$('#tabs button').forEach(b => b.onclick = () => f(+b.dataset.t))
 }
 function roadInit() {
   const L = [['Pendahuluan', 3], ['Unit 1 – Monas', 5], ['Unit 2 – Kota Tua & TMII', 9], ['Unit 3 – Hutan Mangrove', 17], ['Unit 4 – Pantai Ancol & AR', 22], ['Daftar Pustaka', P.findIndex(p => p.t === 'Daftar Pustaka')]];
@@ -242,9 +242,25 @@ function roadInit() {
 
 /* ===== NAVIGASI ===== */
 let cur = 0; const seen = new Set(); const app = $('#app'), scr = $('#screen');
+const motionObserver = 'IntersectionObserver' in window
+  ? new IntersectionObserver(entries => entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('motion-visible');
+    motionObserver.unobserve(entry.target);
+  }), { root: scr, rootMargin: '0px 0px -6% 0px', threshold: .08 })
+  : null;
+function revealContent(root = scr) {
+  const targets = $$('.title, .hero, .card, .grid2 > *, .tabs, .word-card, .profile-card, .summary-item, .monas-recap-item, .road li, .extra-tile, .extra-callout', root);
+  targets.forEach((element, index) => {
+    element.classList.add('motion-item');
+    element.style.setProperty('--motion-order', Math.min(index, 7));
+    if (motionObserver) motionObserver.observe(element);
+    else element.classList.add('motion-visible');
+  });
+}
 function go(i) {
   cur = Math.max(0, Math.min(P.length - 1, i)); const p = P[cur]; seen.add(cur);
-  app.dataset.theme = p.theme; scr.innerHTML = `<section class="scr">${p.html}</section>`; scr.scrollTop = 0; p.init && p.init();
+  app.dataset.theme = p.theme; scr.innerHTML = `<section class="scr">${p.html}</section>`; scr.scrollTop = 0; p.init && p.init(); revealContent();
   const pct = Math.round(seen.size / P.length * 100); $('#progFill').style.width = pct + '%'; $('#progTxt').textContent = pct + '%';
   $('#pageNo').textContent = `${cur + 1} / ${P.length}`; $('#btnPrev').disabled = cur === 0; $('#btnNext').disabled = cur === P.length - 1; closeDrawer();
 }
